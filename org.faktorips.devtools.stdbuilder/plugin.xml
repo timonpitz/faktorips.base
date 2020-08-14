@@ -277,6 +277,23 @@
             factoryClass="org.faktorips.devtools.stdbuilder.dthelper.MonthDayHelperFactory">
       </datatypeHelperFactory>
    </extension>
+   <extension
+         point="org.faktorips.devtools.stdbuilder.artefactBuilderFactory">
+      <artefactBuilderFactory
+            class="org.faktorips.devtools.stdbuilder.xtend.dtomapper.DtoMapperFactory">
+      </artefactBuilderFactory>
+   </extension>
+   <extension
+         id="mapTo"
+         name="mapTo"
+         point="org.faktorips.devtools.core.objectExtensionProperty">
+      <property
+            class="org.faktorips.devtools.core.model.extproperties.StringExtensionPropertyDefinition"
+            extendedType="org.faktorips.devtools.core.model.pctype.IPolicyCmptTypeAttribute"
+            position="bottom"
+            retention="RUNTIME">
+      </property>
+   </extension>
 
 
 </plugin>
