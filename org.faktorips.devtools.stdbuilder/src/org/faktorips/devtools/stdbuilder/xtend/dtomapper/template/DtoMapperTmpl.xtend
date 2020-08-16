@@ -54,8 +54,8 @@ class DtoMapperTmpl {
 		/**
 		* @generated
 		*/
-		public DtoPolicy mapToDto(«policyName» it){
-			DtoPolicy dtoPolicy = new DtoPolicy();
+		public «type.getExtPropertyValue("org.faktorips.devtools.stdbuilder.DTO Class")» mapToDto(«policyName» it){
+			«type.getExtPropertyValue("org.faktorips.devtools.stdbuilder.DTO Class")» dtoPolicy = new «type.getExtPropertyValue("org.faktorips.devtools.stdbuilder.DTO Class")»();
 			
 			«FOR attribute : getAttributes»
 				«mapAttributesToDto(attribute)»
@@ -69,7 +69,7 @@ class DtoMapperTmpl {
 		/**
 		* @generated
 		*/
-		public «policyName» mapToPolicyModel(DtoPolicy it){
+		public «policyName» mapToPolicyModel(«type.getExtPropertyValue("org.faktorips.devtools.stdbuilder.DTO Class")» it){
 			«policyName» policy = new «policyName»();
 			
 			«FOR attribute : getAttributes»
