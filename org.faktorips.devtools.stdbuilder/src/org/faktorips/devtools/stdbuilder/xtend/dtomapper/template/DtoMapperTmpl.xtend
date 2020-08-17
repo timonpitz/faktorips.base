@@ -61,6 +61,10 @@ class DtoMapperTmpl {
 				«mapAttributesToDto(attribute)»
 			«ENDFOR»
 			
+			«IF isConfigured»
+			dtoPolicy.setProductId(it.getProductComponent().getId());
+			«ENDIF»
+			
 			return dtoPolicy;
 		}
 	'''
@@ -75,6 +79,10 @@ class DtoMapperTmpl {
 			«FOR attribute : getAttributes»
 				«mapAttributesToPolicy(attribute)»
 			«ENDFOR»
+			
+			«IF isConfigured»
+			policy.setProductComponent(runtimeRepository.getProductComponent(it.getProductId()));
+			«ENDIF»
 			
 			return policy;
 		}
