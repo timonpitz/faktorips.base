@@ -45,7 +45,7 @@ class DtoMapperTmpl {
 		/**
 		* @generated
 		*/
-		protected «method(implClassName, IRuntimeRepository, "runtimeRepository")»{
+		public «method(implClassName, IRuntimeRepository, "runtimeRepository")»{
 			this.runtimeRepository = runtimeRepository;
 		}
 	'''
@@ -75,6 +75,8 @@ class DtoMapperTmpl {
 			«FOR attribute : getAttributes»
 				«mapAttributesToPolicy(attribute)»
 			«ENDFOR»
+			
+			return policy;
 		}
 	'''
 	
