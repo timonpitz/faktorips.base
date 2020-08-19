@@ -89,13 +89,13 @@ class DtoMapperTmpl {
 	'''
 	
 	def private static mapAttributesToPolicy(XAttribute it)'''
-		«IF attribute.isExtPropertyDefinitionAvailable("org.faktorips.devtools.stdbuilder.mapTo")»
+		«IF attribute.isExtPropertyDefinitionAvailable("org.faktorips.devtools.stdbuilder.mapTo") && !attribute.getExtPropertyValue("org.faktorips.devtools.stdbuilder.mapTo").toString.nullOrEmpty»
 			policy.«methodNameSetter»(it.get«(attribute.getExtPropertyValue("org.faktorips.devtools.stdbuilder.mapTo")).toString.toFirstUpper»());
 		«ENDIF»
 	'''
 	
 	def private static mapAttributesToDto(XAttribute it)'''
-		«IF attribute.isExtPropertyDefinitionAvailable("org.faktorips.devtools.stdbuilder.mapTo")»
+		«IF attribute.isExtPropertyDefinitionAvailable("org.faktorips.devtools.stdbuilder.mapTo") && !attribute.getExtPropertyValue("org.faktorips.devtools.stdbuilder.mapTo").toString.nullOrEmpty»
 			dtoPolicy.set«(attribute.getExtPropertyValue("org.faktorips.devtools.stdbuilder.mapTo")).toString.toFirstUpper»(it.«methodNameGetter»());
 		«ENDIF»
 	'''
