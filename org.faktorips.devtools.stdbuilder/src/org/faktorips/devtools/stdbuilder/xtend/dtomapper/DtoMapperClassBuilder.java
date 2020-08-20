@@ -9,8 +9,10 @@
  *******************************************************************************/
 package org.faktorips.devtools.stdbuilder.xtend.dtomapper;
 
+import org.apache.commons.lang.StringUtils;
 import org.eclipse.core.runtime.CoreException;
 import org.faktorips.devtools.core.builder.naming.IJavaClassNameProvider;
+import org.faktorips.devtools.core.exception.CoreRuntimeException;
 import org.faktorips.devtools.core.model.ipsobject.IIpsObject;
 import org.faktorips.devtools.core.model.ipsobject.IIpsObjectPartContainer;
 import org.faktorips.devtools.core.model.ipsobject.IIpsSrcFile;
@@ -43,7 +45,18 @@ public class DtoMapperClassBuilder extends XtendTypeBuilder<XDtoMapper> {
 
     @Override
     public boolean isBuilderFor(IIpsSrcFile ipsSrcFile) throws CoreException {
-        return IpsObjectType.POLICY_CMPT_TYPE.equals(ipsSrcFile.getIpsObjectType());
+        if (ipsSrcFile.exists() && IpsObjectType.POLICY_CMPT_TYPE.equals(ipsSrcFile.getIpsObjectType())) {
+            IIpsObject ipsObject = ipsSrcFile.getIpsObject();
+            if (ipsObject != null
+                    && ipsObject.isExtPropertyDefinitionAvailable("org.faktorips.devtools.stdbuilder.DTO Class")
+                    && StringUtils.isNotBlank(
+                            (String)ipsObject.getExtPropertyValue("org.faktorips.devtools.stdbuilder.DTO Class"))) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        return false;
     }
 
     @Override
@@ -62,17 +75,16 @@ public class DtoMapperClassBuilder extends XtendTypeBuilder<XDtoMapper> {
 
     @Override
     public boolean isGeneratingArtifactsFor(IIpsObjectPartContainer ipsObjectPartContainer) {
-        /*
-         * boolean isGeneratingArtifacts = false; try { if
-         * (isBuilderFor(ipsObjectPartContainer.getIpsSrcFile()) && ipsObjectPartContainer
-         * .isExtPropertyDefinitionAvailable("org.faktorips.devtools.stdbuilder.DTO Class") &&
-         * !ipsObjectPartContainer.getExtPropertyValue("org.faktorips.devtools.stdbuilder.DTO Class"
-         * ) .toString().isEmpty()) { isGeneratingArtifacts = true; } else { isGeneratingArtifacts =
-         * false; } } catch (CoreException e) { throw new CoreRuntimeException(e); }
-         * System.out.println("isGeneratingArtifacts = " + isGeneratingArtifacts); return
-         * isGeneratingArtifacts;
-         */
+
+        try {
+            if (isBuilderFor(ipsObjectPartContainer.getIpsSrcFile())) {
+                return true;
+            }
+        } catch (CoreException e) {
+            throw new CoreRuntimeException(e);
+        }
         return false;
+
     }
 
     @Override
